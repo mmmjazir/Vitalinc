@@ -308,7 +308,6 @@ const {cities} = useCitySorting();
     placeholder="Search by city..."
     value={selectedCity}
     onChange={handleCityInputChange}
-    onFocus={handleCityInputChange}
     onBlur={handleInputBlur}
     size="sm"
     maxW='180px'
