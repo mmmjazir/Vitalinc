@@ -45,7 +45,7 @@ const ShopSubmitForm = () => {
 
   useEffect(() => {
     const fetchShops = async ()=>{
-      const response = await fetch(`http://localhost:4000/api/shops`, {
+      const response = await fetch(`https://appbackend-lake.vercel.app/api/shops`, {
         headers: {
           'Authorization': `Bearer ${user.token}`
         }
@@ -111,7 +111,7 @@ const ShopSubmitForm = () => {
 
     const shop = { shopname, address, city, latitude, longitude };
 
-    const response = await fetch("http://localhost:4000/api/shops", {
+    const response = await fetch("https://appbackend-lake.vercel.app/api/shops", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
