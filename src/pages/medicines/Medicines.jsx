@@ -302,17 +302,7 @@ const Medicines = () => {
 
    
     <Flex align="center">
-    <Input
-    type="text"
-    placeholder="Search by city..."
-    value={selectedCity}
-    onChange={handleCityInputChange}
-    onBlur={handleInputBlur}
-    size="sm"
-    maxW='180px'
-    bg='white'
-    />
-      <Divider orientation="vertical" mx="2" />
+    
     <Button
     leftIcon={<MdGpsFixed />}
     colorScheme={locationButtonActive ? "purple" : "gray"}
