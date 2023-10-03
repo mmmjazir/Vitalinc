@@ -46,7 +46,7 @@ const MedicineEdit = () => {
     
         const fetchMedicineForEdit = async ()=>{
          if (user && userRole === 'seller' ) {
-            const response = await fetch(`http://localhost:4000/api/medicines/${id}`, {
+            const response = await fetch(`https://appbackend-lake.vercel.app/api/medicines/${id}`, {
             headers: {
               'Authorization': `Bearer ${user.token}`
             }
