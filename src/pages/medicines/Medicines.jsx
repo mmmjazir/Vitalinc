@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { usePublicMedicineContext } from '../../hooks/usePublicMedicineContext'
@@ -21,39 +21,37 @@ import { SearchIcon,CloseIcon } from "@chakra-ui/icons";
 import { MdGpsFixed } from 'react-icons/md';
 
 const Medicines = () => {
-  const { user } = useAuthContext();
-const {publicmedicines, dispatch:publicMedicineDispatch} = usePublicMedicineContext()
-const suggestionsRef = useRef(null);
-const {cities} = useCitySorting();
-  // State to store the user's location
-  const [userLocation, setUserLocation] = useState(null);
-
-  // State to store the search query
-  const [searchQuery, setSearchQuery] = useState("");
-
-  // State to toggle search mode
-  const [searchMode, setSearchMode] = useState(false);
-
-  // State to store the selected city
-  const [selectedCity, setSelectedCity] = useState("");
-
-  // State for city suggestions
-  const [citySuggestions, setCitySuggestions] = useState([]);
-
-  // State to show/hide city suggestions
-  const [showCitySuggestions, setShowCitySuggestions] = useState(false);
-
-  // State to store the sorting method
-  const [sortingMethod, setSortingMethod] = useState("");
-  
-  const [loading, setLoading] = useState(true); 
-  const [medicinesFetched, setMedicinesFetched] = useState(false);
+    const { user } = useAuthContext();
+    const {publicmedicines, dispatch:publicMedicineDispatch} = usePublicMedicineContext()
+    
+    const {cities} = useCitySorting();
+      // State to store the user's location
+      const [userLocation, setUserLocation] = useState(null);
+    
+      // State to store the search query
+      const [searchQuery, setSearchQuery] = useState("");
+    
+      // State to toggle search mode
+      const [searchMode, setSearchMode] = useState(false);
+    
+      // State to store the selected city
+      const [selectedCity, setSelectedCity] = useState("");
+    
+      // State for city suggestions
+      const [citySuggestions, setCitySuggestions] = useState([]);
+    
+      // State to show/hide city suggestions
+      const [showCitySuggestions, setShowCitySuggestions] = useState(false);
+    
+      // State to store the sorting method
+      const [sortingMethod, setSortingMethod] = useState("");
+      
+      const [loading, setLoading] = useState(true); 
+      const [medicinesFetched, setMedicinesFetched] = useState(false);
   const [locationButtonActive, setLocationButtonActive] = useState(false);
  
 
-  // State to store the selected state from the dropdown
-  const [selectedState, setSelectedState] = useState("");
-
+ 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     setSearchQuery(inputValue);
@@ -63,6 +61,7 @@ const {cities} = useCitySorting();
   const handleCityInputChange = (e) => {
     const inputValue = e.target.value.toLowerCase();
     setSelectedCity(inputValue);
+    setSearchMode(false)
     // Filter the cities based on the input value
     const filteredCities = cities.filter(city =>
       city.toLowerCase().includes(inputValue)
@@ -75,8 +74,8 @@ const {cities} = useCitySorting();
 
   const handleCitySuggestionClick = (city) => {
     setSelectedCity(city);
+
     setLocationButtonActive(false)
-  
     setUserLocation(null);
     // Hide city suggestions when a suggestion is clicked
     setShowCitySuggestions(false);
@@ -87,7 +86,7 @@ const {cities} = useCitySorting();
   };
 
   const askForLocation = () => {
-    setLocationButtonActive(true)
+    setLocationButtonActive(false)
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -126,14 +125,14 @@ const {cities} = useCitySorting();
         if (response.ok) {
           const json = await response.json();
           publicMedicineDispatch({ type: "SET_PUBLIC_MEDICINES", payload: json });
-          setMedicinesFetched(true); 
-        } else{
+          setMedicinesFetched(true); // Set medicinesFetched to true after successful fetch
+        } else {
           console.error("Failed to fetch shop data:", response.status, response.statusText);
         }
       } catch (error) {
         console.error("Error while fetching medicines:", error);
       } finally {
-        setLoading(false);
+        setLoading(false); // Always set loading to false after fetch (whether success or error)
       }
     };
   
@@ -187,7 +186,7 @@ const {cities} = useCitySorting();
 
   // Function to handle search button click
   const handleSearchClick = () => {
-    // Set the sorting method to "none"
+    setLocationButtonActive(false)
     setSortingMethod("");
     setSearchMode(true);
   };
@@ -195,7 +194,6 @@ const {cities} = useCitySorting();
   // Function to handle clear search
   const handleClearSearch = () => {
     setSearchQuery("");
-    setLocationButtonActive(false)
     setSearchMode(false);
   };
 
@@ -269,6 +267,7 @@ const {cities} = useCitySorting();
 
   const sortedMedicines = sortMedicines(filteredMedicines);
 
+
   return (
     <Box bg='gray.300' minH='90vh' p="4">
       {user && (
@@ -324,7 +323,6 @@ const {cities} = useCitySorting();
     </Flex>
     {showCitySuggestions && (
     <Box 
-    ref={suggestionsRef}
      mt='128px' p="2" border="1px solid #ccc"
      maxH="200px" maxW='170px' minW='150px' overflowY="auto" 
      zIndex="1"
