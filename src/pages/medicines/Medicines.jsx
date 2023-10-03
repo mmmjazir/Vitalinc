@@ -117,7 +117,7 @@ const {cities} = useCitySorting();
   useEffect(() => {
     const fetchMedicinesForAll = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/publicmedicines", {
+        const response = await fetch("https://appbackend-lake.vercel.app/api/publicmedicines", {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -148,7 +148,7 @@ const {cities} = useCitySorting();
         const medicinesWithShopDetails = await Promise.all(
           publicmedicines.map(async (medicine) => {
             const shopResponse = await fetch(
-              `http://localhost:4000/api/shops/${medicine.shop_id}`,
+              `https://appbackend-lake.vercel.app/api/shops/${medicine.shop_id}`,
               {
                 headers: {
                   Authorization: `Bearer ${user.token}`,
