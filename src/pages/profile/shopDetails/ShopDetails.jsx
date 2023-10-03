@@ -38,7 +38,7 @@ const ShopDetails = () => {
 
     useEffect(() => {
       const fetchShops = async ()=>{
-        const response = await fetch(`http://localhost:4000/api/shops`, {
+        const response = await fetch(`https://appbackend-lake.vercel.app/api/shops`, {
           headers: {
             'Authorization': `Bearer ${user.token}`
           }
@@ -75,7 +75,7 @@ const ShopDetails = () => {
         }
 
 
-        const response = await fetch('http://localhost:4000/api/shops/' +_id, {
+        const response = await fetch('https://appbackend-lake.vercel.app/api/shops/' +_id, {
             method: 'DELETE',
             headers:{
                 'Authorization': `Bearer ${user.token}`
