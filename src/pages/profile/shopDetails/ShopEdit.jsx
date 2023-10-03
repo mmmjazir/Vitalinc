@@ -65,7 +65,7 @@ const ShopEdit = () => {
   useEffect(() => {
     const fetchShopForEdit = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/shops/${id}`, {
+        const response = await fetch(`https://appbackend-lake.vercel.app/api/shops/${id}`, {
           headers: {
             'Authorization': `Bearer ${user.token}`,
           },
@@ -175,7 +175,7 @@ const handleInputBlur = () => {
     }
 
     
-      const response = await fetch(`http://localhost:4000/api/shops/${id}`, {
+      const response = await fetch(`https://appbackend-lake.vercel.app/api/shops/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
