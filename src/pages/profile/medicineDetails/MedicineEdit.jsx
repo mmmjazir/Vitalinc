@@ -86,7 +86,7 @@ const MedicineEdit = () => {
           return;
         }
     
-        const response = await fetch(`http://localhost:4000/api/medicines/${id}`, {
+        const response = await fetch(`https://appbackend-lake.vercel.app/api/medicines/${id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
