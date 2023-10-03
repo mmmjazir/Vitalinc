@@ -34,7 +34,7 @@ const Medicine = () => {
   useEffect(() => {
     async function fetchMedicinesForAll() {
       try {
-        const response = await fetch(`http://localhost:4000/api/publicmedicines/${id}`, {
+        const response = await fetch(`https://appbackend-lake.vercel.app/api/publicmedicines/${id}`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -57,7 +57,7 @@ const Medicine = () => {
     async function fetchShopsForAll() {
       if (publicmedicine && publicmedicine.shop_id) {
         try {
-          const response = await fetch(`http://localhost:4000/api/publicshops/${publicmedicine.shop_id}`, {
+          const response = await fetch(`https://appbackend-lake.vercel.app/api/publicshops/${publicmedicine.shop_id}`, {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },
